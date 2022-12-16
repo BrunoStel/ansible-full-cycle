@@ -1,4 +1,20 @@
-- hosts: aws-ec2
+- hosts: all
   become: true
   roles:
+    - nginx
     - install-docker
+
+- hosts: manager
+  become: true
+  roles:
+    - docker-swarm-manager
+
+- hosts: workers
+  become: true
+  roles:
+    - docker-swarm-worker
+
+- hosts: manager
+  become: true
+  roles:
+    - deploy_stack
